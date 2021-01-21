@@ -4,16 +4,16 @@ import '../css/Palette.css';
 
 export default class Palette extends Component {
     render() {
-        const colorBoxes = this.props.colors.map(color =>
-            <ColorBox background={color.color} name={color.name} />
+        const colorBoxes = this.props.colors.map(c =>
+            <ColorBox key={c.color} background={c.color} name={c.name} />
         )
         return (
             <div className="Palette">
-                {/* Navbar goes here */}
+                <div className="Palette-navbar"></div>
                 <div className="Palette-colors">
                     {colorBoxes}
                 </div>
-                {/* footer */}
+                <div className="Palette-footer"></div>
             </div>
         );
     }
