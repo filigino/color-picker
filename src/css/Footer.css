@@ -1,0 +1,11 @@
+.Footer {
+    align-items: center;
+    display: flex;
+    font-weight: bold;
+    justify-content: flex-end;
+}
+
+.Footer .emoji {
+    font-size: 1.5rem;
+    margin: 0 1rem;
+}

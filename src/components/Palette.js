@@ -34,11 +34,11 @@ export default class Palette extends Component {
     }
 
     render() {
-        const { colors } = this.props.palette;
+        const { colors, paletteName, emoji } = this.props.palette;
         const { level, format } = this.state;
 
         const colorBoxes = colors[level].map(c =>
-            <ColorBox key={c.hex} backgroundColor={c[format]} name={c.name} />
+            <ColorBox key={c.id} backgroundColor={c[format]} name={c.name} />
         );
 
         return (
@@ -55,7 +55,7 @@ export default class Palette extends Component {
                     {colorBoxes}
                 </div>
                 <div className="footer">
-                    <Footer />
+                    <Footer name={paletteName} emoji={emoji} />
                 </div>
                 <Snackbar
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
