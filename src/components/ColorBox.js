@@ -5,21 +5,29 @@ import '../css/ColorBox.css';
 export default class ColorBox extends Component {
     constructor(props) {
         super(props);
-        this.state = { isBeingCopied: false };
+        this.state = { isCopying: false };
         this.changeCopyState = this.changeCopyState.bind(this);
     }
 
     changeCopyState() {
-        this.setState({ isBeingCopied: true }, () => {
-            setTimeout(() => this.setState({ isBeingCopied: false }), 1500);
+        this.setState({ isCopying: true }, () => {
+            setTimeout(() => this.setState({ isCopying: false }), 1500);
         });
     }
 
     render() {
-        const { name, background } = this.props;
+        const { name, backgroundColor } = this.props;
         return (
-            <div style={{ backgroundColor: background }} className="ColorBox">
-                <CopyToClipboard text={background} onCopy={this.changeCopyState}>
+            <div className="ColorBox">
+                <div
+                    style={{ backgroundColor }}
+                    className={`ColorBox-background${this.state.isCopying ? ' ColorBox-copy-overlay' : ''}`}
+                />
+                <div className={`ColorBox-copy-overlay-text${this.state.isCopying ? ' active' : ''}`}>
+                    <h1>Copied!</h1>
+                    <p>{backgroundColor}</p>
+                </div>
+                <CopyToClipboard text={backgroundColor} onCopy={this.changeCopyState}>
                     <button className="ColorBox-button-box">
                         <div className="ColorBox-copy-button">Copy</div>
                         <div className="ColorBox-name">{name}</div>
@@ -27,7 +35,6 @@ export default class ColorBox extends Component {
                 </CopyToClipboard>
                 <button className="ColorBox-more-button">More</button>
             </div>
-
         );
     }
 }
