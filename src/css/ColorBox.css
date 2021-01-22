@@ -80,11 +80,7 @@
     width: 100px;
 }
 
-.ColorBox-button-box:hover .ColorBox-copy-button {
-    opacity: 1;
-    transition: 0.5s;
-}
-
+.ColorBox-button-box:hover .ColorBox-copy-button,
 .ColorBox-button-box:focus .ColorBox-copy-button {
     opacity: 1;
     transition: 0.5s;
