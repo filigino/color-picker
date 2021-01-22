@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import '../css/Navbar.css';
@@ -6,31 +8,50 @@ import '../css/Navbar.css';
 export default class Navbar extends Component {
     constructor(props) {
         super(props);
+
+        this.handleChange = this.handleChange.bind(this);
         this.handleSlide = this.handleSlide.bind(this);
     }
 
+    handleChange(evt) {
+        this.props.changeFormat(evt.target.value);
+    }
+
     handleSlide(level) {
-        this.props.changeColorLevel(level)
+        this.props.changeLevel(level)
     }
 
     render() {
-        const { colorLevel } = this.props;
+        const { level, format } = this.props;
         return (
             <nav className="Navbar">
                 <div className="logo">
                     <a href="/">React Color Picker</a>
                 </div>
                 <div className="slider-container">
-                    <span>Level: {colorLevel}</span>
+                    <span>Level: {level}</span>
                     <div className="slider">
                         <Slider
-                            defaultValue={colorLevel}
+                            defaultValue={level}
                             min={100}
                             max={900}
                             step={100}
                             onAfterChange={this.handleSlide}
                         />
                     </div>
+                </div>
+                <div className="select-container">
+                    <Select value={format} onChange={this.handleChange}>
+                        <MenuItem value="hex">
+                            HEX - #ffffff
+                        </MenuItem>
+                        <MenuItem value="rgb">
+                            RGB - rgb(255, 255, 255)
+                        </MenuItem>
+                        <MenuItem value="rgba">
+                            RGBA - rgba(255, 255, 255, 1.0)
+                        </MenuItem>
+                    </Select>
                 </div>
             </nav>
         );

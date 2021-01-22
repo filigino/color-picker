@@ -18,7 +18,10 @@ function generatePalette(starterPalette) {
                 id: color.name.toLowerCase().replace(/ /g, "-"),
                 hex: scale[i],
                 rgb: chroma(scale[i]).css(),
-                rgba: chroma(scale[i]).rgba()
+                rgba: chroma(scale[i])
+                    .css()
+                    .replace("rgb", "rgba")
+                    .replace(")", ",1.0)")
             });
         }
     }
