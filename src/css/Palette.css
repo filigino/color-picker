@@ -2,44 +2,16 @@
     height: 100%;
 }
 
-.Palette-navbar {
+.Palette .navbar {
     height: 5%;
 }
 
-.Palette-navbar .slider {
-    display: inline-block;
-    margin: 0 10px;
-    width: 340px;
-}
-
-.rc-slider-handle,
-.rc-slider-handle:hover,
-.rc-slider-handle:active,
-.rc-slider-handle:focus {
-    background-color: green;
-    border: 2px solid green;
-    box-shadow: none;
-    height: 13px;
-    margin-left: -7px;
-    margin-top: -3px;
-    outline: none;
-    width: 13px;
-}
-
-.rc-slider-track {
-    background-color: transparent;
-}
-
-.rc-slider-rail {
-    height: 8px;
-}
-
-.Palette-colors {
+.Palette .colors {
     display: flex;
     flex-wrap: wrap;
     height: 90%;
 }
 
-.Palette-footer {
+.Palette .footer {
     height: 5%;
 }
