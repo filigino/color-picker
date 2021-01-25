@@ -41,8 +41,7 @@ export default class Palette extends Component {
             <ColorBox key={c.id}
                 backgroundColor={c[format]}
                 name={c.name}
-                paletteId={id}
-                colorId={c.id}
+                moreLink={`/palette/${id}/${c.id}`}
             />
         );
 
