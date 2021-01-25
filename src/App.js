@@ -20,6 +20,9 @@ function App() {
                 <Route exact path="/palette/:id" component={routeParams =>
                     <Palette palette={findPalette(routeParams.match.params.id)} />
                 } />
+                <Route exact path="/palette/:paletteId/:colorId" component={routeParams =>
+                    <h1>Single color page</h1>
+                } />
             </Switch>
         </div>
     );

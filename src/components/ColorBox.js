@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Link } from 'react-router-dom';
 import '../css/ColorBox.css';
 
 export default class ColorBox extends Component {
@@ -16,7 +17,7 @@ export default class ColorBox extends Component {
     }
 
     render() {
-        const { name, backgroundColor } = this.props;
+        const { colorId, name, paletteId, backgroundColor } = this.props;
         return (
             <div className="ColorBox">
                 <div
@@ -33,7 +34,7 @@ export default class ColorBox extends Component {
                         <div className="ColorBox-name">{name}</div>
                     </button>
                 </CopyToClipboard>
-                <button className="ColorBox-more-button">More</button>
+                <Link to={`/palette/${paletteId}/${colorId}`} className="ColorBox-more-button">More</Link>
             </div>
         );
     }

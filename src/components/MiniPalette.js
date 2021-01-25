@@ -57,6 +57,14 @@ const MiniPalette = (props) => {
         />
     )
 
+    if (miniColorBoxes.length !== 20) miniColorBoxes.push(
+        <div
+            key="Blank"
+            className={classes.miniColorBox}
+            style={{ backgroundColor: 'transparent' }}
+        />
+    )
+
     return (
         <button className={classes.root} onClick={handleClick}>
             <div className={classes.colors}>
