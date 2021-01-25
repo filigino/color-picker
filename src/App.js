@@ -1,6 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
-import Home from './components/Home';
 import Palette from './components/Palette';
+import PaletteList from './components/PaletteList';
 import seedColors from './seeds/seedColors';
 import { generatePalette } from './seeds/colorHelpers';
 import './css/App.css';
@@ -15,7 +15,7 @@ function App() {
         <div className="App">
             <Switch>
                 <Route exact path="/">
-                    <Home palettes={seedColors} />
+                    <PaletteList palettes={seedColors} />
                 </Route>
                 <Route exact path="/palette/:id" component={routeParams =>
                     <Palette palette={findPalette(routeParams.match.params.id)} />
