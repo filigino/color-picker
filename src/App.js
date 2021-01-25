@@ -22,7 +22,10 @@ function App() {
                     <Palette palette={findPalette(routeParams.match.params.id)} />
                 } />
                 <Route exact path="/palette/:paletteId/:colorId" component={routeParams =>
-                    <SingleColorPalette />
+                    <SingleColorPalette
+                        palette={findPalette(routeParams.match.params.paletteId)}
+                        colorId={routeParams.match.params.colorId}
+                    />
                 } />
             </Switch>
         </div>

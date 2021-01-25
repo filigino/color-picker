@@ -38,10 +38,12 @@ export default class Palette extends Component {
         const { level, format } = this.state;
 
         const colorBoxes = colors[level].map(c =>
-            <ColorBox key={c.id}
+            <ColorBox
+                key={c.id}
                 backgroundColor={c[format]}
                 name={c.name}
                 moreLink={`/palette/${id}/${c.id}`}
+                showMoreLink
             />
         );
 

@@ -17,7 +17,7 @@ export default class ColorBox extends Component {
     }
 
     render() {
-        const { moreLink, name, backgroundColor } = this.props;
+        const { moreLink, name, backgroundColor, showMoreLink } = this.props;
         return (
             <div className="ColorBox">
                 <div
@@ -34,7 +34,9 @@ export default class ColorBox extends Component {
                         <div className="ColorBox-name">{name}</div>
                     </button>
                 </CopyToClipboard>
-                <Link to={moreLink} className="ColorBox-more-button">More</Link>
+                {showMoreLink &&
+                    <Link to={moreLink} className="ColorBox-more-button">More</Link>
+                }
             </div>
         );
     }
