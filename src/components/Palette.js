@@ -2,12 +2,30 @@ import React, { Component } from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
+import { withStyles } from '@material-ui/styles';
 import Navbar from './Navbar';
 import ColorBox from './ColorBox';
 import Footer from './Footer';
-import '../css/Palette.css';
 
-export default class Palette extends Component {
+const styles = {
+    root: {
+        height: '100%'
+    },
+    navbar: {
+        height: '5%'
+    },
+    colors: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        height: '90%'
+    },
+    footer: {
+        height: '5%'
+    }
+}
+
+
+class Palette extends Component {
     constructor(props) {
         super(props);
         this.state = { level: 500, format: 'hex', isSnackbarOpen: false };
@@ -35,6 +53,7 @@ export default class Palette extends Component {
 
     render() {
         const { colors, id, paletteName, emoji } = this.props.palette;
+        const { classes } = this.props;
         const { level, format } = this.state;
 
         const colorBoxes = colors[level].map(c =>
@@ -43,24 +62,25 @@ export default class Palette extends Component {
                 backgroundColor={c[format]}
                 name={c.name}
                 moreLink={`/palette/${id}/${c.id}`}
-                showMoreLink
+                isSingleColor={false}
             />
         );
 
         return (
-            <div className="Palette">
-                <div className="navbar">
+            <div className={classes.root}>
+                <div className={classes.navbar}>
                     <Navbar
                         level={level}
                         format={format}
                         changeLevel={this.changeLevel}
                         changeFormat={this.changeFormat}
+                        isSingleColor={false}
                     />
                 </div>
-                <div className="colors">
+                <div className={classes.colors}>
                     {colorBoxes}
                 </div>
-                <div className="footer">
+                <div className={classes.footer}>
                     <Footer name={paletteName} emoji={emoji} />
                 </div>
                 <Snackbar
@@ -85,3 +105,5 @@ export default class Palette extends Component {
         );
     }
 }
+
+export default withStyles(styles)(Palette);
