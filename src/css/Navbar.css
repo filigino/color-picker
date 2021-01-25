@@ -32,11 +32,9 @@
 .rc-slider-handle:focus {
     background-color: green;
     border: 2px solid green;
-    box-shadow: none;
     height: 13px;
     margin-left: -7px;
     margin-top: -3px;
-    outline: none;
     width: 13px;
 }
 

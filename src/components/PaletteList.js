@@ -17,7 +17,7 @@ class PaletteList extends Component {
         const { palettes, classes } = this.props;
 
         const paletteList = palettes.map(p =>
-            <div className="col-4">
+            <div key={p.id} className="col-4">
                 <MiniPalette {...p} />
             </div>
         )

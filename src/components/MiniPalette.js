@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 
 const styles = {
@@ -10,9 +10,7 @@ const styles = {
         padding: '0.5rem',
         position: 'relative',
         overflow: 'hidden',
-        '&:hover': {
-            cursor: 'pointer'
-        }
+        width: '100%'
     },
     colors: {
         backgroundColor: '#dae1e4',
@@ -28,8 +26,7 @@ const styles = {
         margin: '0',
         color: 'black',
         paddingTop: '0.5rem',
-        fontSize: '1rem',
-        position: 'relative'
+        fontSize: '1rem'
     },
     emoji: {
         marginLeft: '0.5rem',
@@ -40,13 +37,18 @@ const styles = {
         width: '20%',
         display: 'inline-block',
         margin: '0 auto',
-        position: 'relative',
         marginBottom: '-3.5px'
     }
 }
 
 const MiniPalette = (props) => {
+    const history = useHistory();
     const { classes, colors, emoji, id, paletteName } = props;
+
+    const handleClick = () => {
+        history.push(`/palette/${id}`);
+    }
+
     const miniColorBoxes = colors.map(color =>
         <div
             key={color.name}
@@ -56,14 +58,14 @@ const MiniPalette = (props) => {
     )
 
     return (
-        <div className={classes.root}>
+        <button className={classes.root} onClick={handleClick}>
             <div className={classes.colors}>
                 {miniColorBoxes}
             </div>
             <h5 className={classes.title}>
                 {paletteName} <span className={classes.emoji}>{emoji}</span>
             </h5>
-        </div>
+        </button>
     );
 }
 
