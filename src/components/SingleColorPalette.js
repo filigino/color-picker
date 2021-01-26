@@ -20,6 +20,29 @@ const styles = {
         flexWrap: 'wrap',
         height: '90%'
     },
+    backBox: {
+        alignItems: 'center',
+        backgroundColor: 'black',
+        color: 'white',
+        display: 'flex',
+        justifyContent: 'center',
+        textDecoration: 'none',
+        textTransform: 'uppercase',
+        width: '20%',
+        '& a': {
+            backgroundColor: 'rgba(255, 255, 255, 0.3)',
+            color: 'white',
+            fontSize: '1rem',
+            height: '30px',
+            lineHeight: '30px',
+            margin: '0 auto',
+            textAlign: 'center',
+            width: '100px'
+        },
+        '&:hover': {
+            color: 'white'
+        }
+    },
     footer: {
         height: '5%'
     }
@@ -81,8 +104,8 @@ class SingleColorPalette extends Component {
                 </div>
                 <div className={classes.colors}>
                     {colorBoxes}
-                    <Link to={`/palette/${paletteId}`} className="ColorBox-back-box">
-                        <div className="ColorBox-back-button">
+                    <Link to={`/palette/${paletteId}`} className={classes.backBox}>
+                        <div>
                             Go back
                         </div>
                     </Link>

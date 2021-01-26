@@ -3,7 +3,6 @@ import chroma from 'chroma-js';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
-import '../css/ColorBox.css';
 
 const styles = {
     colorBox: {
@@ -66,27 +65,27 @@ const styles = {
         transform: 'scale(1)',
         transition: 'all 0.4s ease-in-out',
         transitionDelay: '0.1s',
-        zIndex: '1'
+        zIndex: '1',
+        '& h1': {
+            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+            fontWeight: '400',
+            marginBottom: '0',
+            padding: '1rem',
+            textAlign: 'center',
+            textShadow: '1px 2px black',
+            textTransform: 'uppercase',
+            width: '100%'
+        },
+        '& p': {
+            color: props => chroma(props.backgroundColor).luminance() >= 0.7 ? 'black' : 'white',
+            fontSize: '2rem',
+            fontWeight: '100',
+        }
     },
     copyOverlayTextInActive: {
         color: 'black',
         opacity: 0,
         position: 'absolute',
-    },
-    copyOverlayTextHeading: {
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-        fontWeight: '400',
-        marginBottom: '0',
-        padding: '1rem',
-        textAlign: 'center',
-        textShadow: '1px 2px black',
-        textTransform: 'uppercase',
-        width: '100%'
-    },
-    copyText: {
-        color: props => chroma(props.backgroundColor).luminance() >= 0.7 ? 'black' : 'white',
-        fontSize: '2rem',
-        fontWeight: '100',
     },
     moreButton: {
         backgroundColor: 'rgba(255, 255, 255, 0.3)',
@@ -130,7 +129,6 @@ class ColorBox extends Component {
         return (
             <div className={classes.colorBox}>
                 <div
-                    style={{ backgroundColor }}
                     className={`${classes.background} ${this.state.isCopying ? classes.copyOverlay : ''}`}
                 />
                 <div className={this.state.isCopying ? classes.copyOverlayTextActive : classes.copyOverlayTextInActive}>
