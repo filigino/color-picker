@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import MiniPalette from './MiniPalette';
 import styles from '../styles/PaletteListStyles';
@@ -16,12 +17,12 @@ class PaletteList extends Component {
         return (
             <div className={classes.root}>
                 <div className="container">
-                    <nav className={`row justify-content-between ${classes.nav}`}>
+                    <nav className={`row justify-content-between align-items-center ${classes.nav}`}>
                         <div className="col-auto">
                             <h1>Color Picker</h1>
                         </div>
                         <div className="col-auto">
-                            <h1>hatdog</h1>
+                            <Link to="/palette/new">Create Palette</Link>
                         </div>
                     </nav>
                     <div className="row justify-content-between">

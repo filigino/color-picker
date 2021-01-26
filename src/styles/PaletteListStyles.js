@@ -4,6 +4,9 @@ export default {
         height: '100%'
     },
     nav: {
-        color: 'white'
+        color: 'white',
+        '& a': {
+            color: 'white'
+        }
     }
 };
