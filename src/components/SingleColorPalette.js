@@ -79,9 +79,9 @@ class SingleColorPalette extends Component {
                         isSingleColor
                     />
                 </div>
-                <div className={`${classes.colors} single-color-palette`}>
+                <div className={classes.colors}>
                     {colorBoxes}
-                    <Link to={`/palette/${paletteId}`} className="ColorBox ColorBox-back-box">
+                    <Link to={`/palette/${paletteId}`} className="ColorBox-back-box">
                         <div className="ColorBox-back-button">
                             Go back
                         </div>
