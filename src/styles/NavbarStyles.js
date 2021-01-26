@@ -25,6 +25,21 @@ export default {
     slider: {
         display: 'inline-block',
         margin: '0 10px',
-        width: '340px'
+        width: '340px',
+        '& .rc-slider-handle, .rc-slider-handle:hover, .rc-slider-handle:active, .rc-slider-handle:focus':
+        {
+            backgroundColor: 'green',
+            border: '2px solid green',
+            height: '13px',
+            marginLeft: '-7px',
+            marginTop: '-3px',
+            width: '13px',
+        },
+        '& .rc-slider-rail': {
+            height: '8px'
+        },
+        '& .rc-slider-track': {
+            backgroundColor: 'transparent'
+        }
     }
 };

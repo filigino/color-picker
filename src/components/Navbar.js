@@ -6,7 +6,6 @@ import Slider from 'rc-slider';
 import { withStyles } from '@material-ui/styles';
 import styles from '../styles/NavbarStyles';
 import 'rc-slider/assets/index.css';
-import '../css/Navbar.css';
 
 class Navbar extends Component {
     constructor(props) {
