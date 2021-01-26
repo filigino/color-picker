@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Slider from 'rc-slider';
+import { withStyles } from '@material-ui/styles';
+import styles from '../styles/NavbarStyles';
 import 'rc-slider/assets/index.css';
 import '../css/Navbar.css';
 
-export default class Navbar extends Component {
+class Navbar extends Component {
     constructor(props) {
         super(props);
 
@@ -23,16 +25,16 @@ export default class Navbar extends Component {
     }
 
     render() {
-        const { level, format, isSingleColor } = this.props;
+        const { level, format, isSingleColor, classes } = this.props;
         return (
-            <nav className="Navbar">
-                <div className="logo">
+            <nav className={classes.navbar}>
+                <div className={classes.logo}>
                     <Link to="/">Color Picker</Link>
                 </div>
                 {!isSingleColor &&
-                    <div className="slider-container">
+                    <div>
                         <span>Level: {level}</span>
-                        <div className="slider">
+                        <div className={classes.slider}>
                             <Slider
                                 defaultValue={level}
                                 min={100}
@@ -43,7 +45,7 @@ export default class Navbar extends Component {
                         </div>
                     </div>
                 }
-                <div className="select-container">
+                <div className={classes.selectContainer}>
                     <Select value={format} onChange={this.handleChange}>
                         <MenuItem value="hex">
                             HEX - #ffffff
@@ -60,3 +62,5 @@ export default class Navbar extends Component {
         );
     }
 }
+
+export default withStyles(styles)(Navbar);

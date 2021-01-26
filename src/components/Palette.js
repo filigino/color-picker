@@ -6,24 +6,7 @@ import { withStyles } from '@material-ui/styles';
 import Navbar from './Navbar';
 import ColorBox from './ColorBox';
 import Footer from './Footer';
-
-const styles = {
-    root: {
-        height: '100%'
-    },
-    navbar: {
-        height: '5%'
-    },
-    colors: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        height: '90%'
-    },
-    footer: {
-        height: '5%'
-    }
-}
-
+import styles from '../styles/PaletteStyles';
 
 class Palette extends Component {
     constructor(props) {
