@@ -19,7 +19,7 @@ export default class ColorBox extends Component {
     render() {
         const { moreLink, name, backgroundColor, isSingleColor } = this.props;
         return (
-            <div className="ColorBox" style={{ height: isSingleColor ? '50%' : '' }}>
+            <div className="ColorBox">
                 <div
                     style={{ backgroundColor }}
                     className={`ColorBox-background${this.state.isCopying ? ' ColorBox-copy-overlay' : ''}`}

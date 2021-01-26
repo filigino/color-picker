@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -56,7 +57,7 @@ class SingleColorPalette extends Component {
     }
 
     render() {
-        const { paletteName, emoji } = this.props.palette;
+        const { paletteName, emoji, id: paletteId } = this.props.palette;
         const { classes } = this.props;
         const { format } = this.state;
 
@@ -78,8 +79,13 @@ class SingleColorPalette extends Component {
                         isSingleColor
                     />
                 </div>
-                <div className={classes.colors}>
+                <div className={`${classes.colors} single-color-palette`}>
                     {colorBoxes}
+                    <Link to={`/palette/${paletteId}`} className="ColorBox ColorBox-back-box">
+                        <div className="ColorBox-back-button">
+                            Go back
+                        </div>
+                    </Link>
                 </div>
                 <div className={classes.footer}>
                     <Footer name={paletteName} emoji={emoji} />
