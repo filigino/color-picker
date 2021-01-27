@@ -6,8 +6,6 @@ const styles = {
         height: '5%'
     },
     colors: {
-        display: 'flex',
-        flexWrap: 'wrap',
         height: '90%'
     },
     footer: {
