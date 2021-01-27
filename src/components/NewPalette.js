@@ -6,17 +6,14 @@ import { arrayMove } from 'react-sortable-hoc';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from '@material-ui/core/Button';
 import DraggableColorList from './DraggableColorList';
+import NewPaletteNavbar from './NewPaletteNavbar';
 
 const drawerWidth = 400;
 
@@ -185,45 +182,14 @@ const NewPalette = ({ palettes, addPalette, maxColors = 20 }) => {
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: open,
-                })}
-                color="default"
-            >
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        className={clsx(classes.menuButton, open && classes.hide)}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap>
-                        Persistent drawer
-                    </Typography>
-                    <ValidatorForm onSubmit={handleSavePalette}>
-                        <TextValidator
-                            value={paletteName}
-                            onChange={handleChangePaletteName}
-                            label="Palette Name"
-                            validators={['required', 'paletteNameUnique']}
-                            errorMessages={['Required', 'Name already used']}
-                        />
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                        >
-                            Save Palette
-                        </Button>
-                    </ValidatorForm>
-                </Toolbar>
-            </AppBar>
+            <NewPaletteNavbar
+                paletteName={paletteName}
+                open={open}
+                handleDrawerOpen={handleDrawerOpen}
+                handleSavePalette={handleSavePalette}
+                handleChangePaletteName={handleChangePaletteName}
+                classes={classes}
+            />
             <Drawer
                 className={classes.drawer}
                 variant="persistent"
@@ -247,7 +213,8 @@ const NewPalette = ({ palettes, addPalette, maxColors = 20 }) => {
                         Clear Palette
                     </Button>
                     <Button
-                        variant="contained"
+                        variant="cont
+                        ained"
                         color="primary"
                         onClick={handleRandom}
                         disabled={isPaletteFull}
