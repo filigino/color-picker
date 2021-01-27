@@ -1,4 +1,4 @@
-export default {
+const styles = {
     root: {
         backgroundColor: 'white',
         border: '1px solid black',
@@ -36,3 +36,5 @@ export default {
         marginBottom: '-3.5px'
     }
 };
+
+export default styles;

@@ -1,4 +1,4 @@
-export default {
+const styles = {
     footer: {
         alignItems: 'center',
         display: 'flex',
@@ -10,3 +10,5 @@ export default {
         margin: '0 1rem'
     }
 };
+
+export default styles;

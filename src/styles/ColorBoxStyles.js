@@ -1,6 +1,6 @@
 import chroma from 'chroma-js';
 
-export default {
+const styles = {
     colorBox: {
         height: props => props.isSingleColor ? '50%' : '25%',
         position: 'relative',
@@ -105,3 +105,5 @@ export default {
         position: 'absolute',
     }
 };
+
+export default styles;

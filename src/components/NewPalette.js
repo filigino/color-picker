@@ -77,6 +77,8 @@ const NewPalette = () => {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(true);
+    const [color, setColor] = React.useState('teal');
+    const [palette, setPalette] = React.useState(['purple', 'blue']);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -84,6 +86,14 @@ const NewPalette = () => {
 
     const handleDrawerClose = () => {
         setOpen(false);
+    };
+
+    const changeColor = color => {
+        setColor(color.hex)
+    };
+
+    const addColor = () => {
+        setPalette([...palette, color]);
     };
 
     return (
@@ -136,8 +146,8 @@ const NewPalette = () => {
                         Random Color
                     </Button>
                 </div>
-                <ChromePicker color="purple" onChangeComplete={newColor => { console.log(newColor) }} />
-                <Button variant="contained" color="primary">
+                <ChromePicker color={color} onChangeComplete={changeColor} />
+                <Button variant="contained" color="primary" style={{ backgroundColor: color }} onClick={addColor}>
                     Add Color
                 </Button>
             </Drawer>
@@ -147,6 +157,7 @@ const NewPalette = () => {
                 })}
             >
                 <div className={classes.drawerHeader} />
+                {palette.map(p => <div>{p}</div>)}
             </main>
         </div>
     );
