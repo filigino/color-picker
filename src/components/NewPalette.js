@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { ChromePicker } from 'react-color';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import clsx from 'clsx';
@@ -76,33 +77,54 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const NewPalette = () => {
+const NewPalette = props => {
+    const history = useHistory();
     const classes = useStyles();
     const theme = useTheme();
-    const [palette, setPalette] = React.useState([{ name: 'purple', color: 'purple' }]);
+    const [colors, setColors] = React.useState([{ name: 'purple', color: 'purple' }]);
     const [color, setColor] = React.useState('teal');
     const [name, setName] = React.useState('');
     const [open, setOpen] = React.useState(true);
 
     React.useEffect(() => {
         ValidatorForm.addValidationRule('isColorNameUnique', value =>
-            palette.every(({ name }) => name.toLowerCase() !== value.toLowerCase())
+            colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase())
         );
         ValidatorForm.addValidationRule('isColorUnique', () =>
-            palette.every(c => c.color !== color)
+            colors.every(c => c.color !== color)
         );
     });
+
+    const handleChangeColor = color => {
+        changeColor(color);
+    }
 
     const changeColor = color => {
         setColor(color.hex);
     };
 
+    const handleSubmit = () => {
+        addColor();
+    }
+
     const addColor = () => {
-        setPalette([...palette, { name, color }]);
+        setColors([...colors, { name, color }]);
     };
 
     const handleChange = evt => {
         setName(evt.target.value);
+    };
+
+    const handleSavePalette = () => {
+        savePalette();
+        history.push('/');
+    }
+
+    const savePalette = () => {
+        const paletteName = 'Test Palette';
+        const id = paletteName.replace(' ', '-').toLowerCase();
+        const palette = { paletteName, colors, id }
+        props.savePalette(palette);
     };
 
     const handleDrawerOpen = () => {
@@ -121,6 +143,7 @@ const NewPalette = () => {
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open,
                 })}
+                color="default"
             >
                 <Toolbar>
                     <IconButton
@@ -134,7 +157,14 @@ const NewPalette = () => {
                     </IconButton>
                     <Typography variant="h6" noWrap>
                         Persistent drawer
-            </Typography>
+                    </Typography>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleSavePalette}
+                    >
+                        Save Palette
+                    </Button>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -163,8 +193,8 @@ const NewPalette = () => {
                         Random Color
                     </Button>
                 </div>
-                <ChromePicker color={color} onChangeComplete={changeColor} />
-                <ValidatorForm onSubmit={addColor}>
+                <ChromePicker color={color} onChangeComplete={handleChangeColor} />
+                <ValidatorForm onSubmit={handleSubmit}>
                     <TextValidator
                         value={name}
                         onChange={handleChange}
@@ -187,7 +217,7 @@ const NewPalette = () => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                {palette.map(color => <DraggableColorBox {...color} />)}
+                {colors.map(c => <DraggableColorBox key={c.name} {...c} />)}
             </main>
         </div>
     );

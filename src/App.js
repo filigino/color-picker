@@ -13,6 +13,10 @@ function App() {
         return generatePalette(palette);
     };
 
+    const savePalette = palette => {
+        seedColors.push(palette);
+    };
+
     return (
         <div className="App">
             <Switch>
@@ -20,7 +24,7 @@ function App() {
                     <PaletteList palettes={seedColors} />
                 </Route>
                 <Route exact path="/palette/new">
-                    <NewPalette />
+                    <NewPalette savePalette={savePalette} />
                 </Route>
                 <Route exact path="/palette/:id" component={routeParams =>
                     <Palette palette={findPalette(routeParams.match.params.id)} />
