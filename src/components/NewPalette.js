@@ -101,7 +101,7 @@ const NewPalette = props => {
 
     const handleChangeColor = color => {
         changeColor(color);
-    }
+    };
 
     const changeColor = color => {
         setColor(color.hex);
@@ -109,10 +109,10 @@ const NewPalette = props => {
 
     const handleSubmit = () => {
         addColor();
-    }
+    };
 
     const addColor = () => {
-        setColors([...colors, { colorName, color }]);
+        setColors([...colors, { name: colorName, color }]);
     };
 
     const handleChangeColorName = evt => {
@@ -121,12 +121,16 @@ const NewPalette = props => {
 
     const handleChangePaletteName = evt => {
         setPaletteName(evt.target.value);
-    }
+    };
+
+    const deleteColor = name => {
+        setColors(colors.filter(c => c.name !== name));
+    };
 
     const handleSavePalette = () => {
         savePalette();
         history.push('/');
-    }
+    };
 
     const savePalette = () => {
         const id = paletteName.replace(' ', '-').toLowerCase();
@@ -141,6 +145,10 @@ const NewPalette = props => {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    const colorBoxes = colors.map(c =>
+        <DraggableColorBox key={c.name} {...c} deleteColor={deleteColor} />
+    );
 
     return (
         <div className={classes.root}>
@@ -233,7 +241,7 @@ const NewPalette = props => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                {colors.map(c => <DraggableColorBox key={c.name} {...c} />)}
+                {colorBoxes}
             </main>
         </div>
     );
