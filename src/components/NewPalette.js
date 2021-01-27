@@ -78,15 +78,18 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const NewPalette = props => {
+const NewPalette = ({ palettes, addPalette, maxColors = 20 }) => {
     const history = useHistory();
     const classes = useStyles();
     const theme = useTheme();
-    const [colors, setColors] = React.useState([{ name: 'purple', color: 'purple' }]);
+
+    const [colors, setColors] = React.useState(palettes[0].colors);
     const [color, setColor] = React.useState('teal');
     const [colorName, setColorName] = React.useState('');
     const [paletteName, setPaletteName] = React.useState('');
     const [open, setOpen] = React.useState(true);
+
+    const isPaletteFull = colors.length >= maxColors;
 
     React.useEffect(() => {
         ValidatorForm.addValidationRule('colorNameUnique', value =>
@@ -96,7 +99,7 @@ const NewPalette = props => {
             colors.every(c => c.color !== color)
         );
         ValidatorForm.addValidationRule('paletteNameUnique', value =>
-            props.palettes.every(({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase())
+            palettes.every(({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase())
         );
     });
 
@@ -109,12 +112,19 @@ const NewPalette = props => {
     };
 
     const handleSubmit = () => {
-        addColor();
+        if (!isPaletteFull) {
+            addColor({ name: colorName, color });
+            clearColorName();
+        }
     };
 
-    const addColor = () => {
-        setColors([...colors, { name: colorName, color }]);
+    const addColor = color => {
+        setColors([...colors, color]);
     };
+
+    const clearColorName = () => {
+        setColorName('');
+    }
 
     const handleChangeColorName = evt => {
         setColorName(evt.target.value);
@@ -123,6 +133,28 @@ const NewPalette = props => {
     const handleChangePaletteName = evt => {
         setPaletteName(evt.target.value);
     };
+
+    const handleClear = () => {
+        clearPalette();
+    }
+
+    const clearPalette = () => {
+        setColors([]);
+    }
+
+    const handleRandom = () => {
+        addRandomColor();
+    }
+
+    const addRandomColor = () => {
+        let color;
+        do {
+            const paletteIndex = Math.floor(Math.random() * palettes.length);
+            const colorIndex = Math.floor(Math.random() * palettes[paletteIndex].colors.length);
+            color = palettes[paletteIndex].colors[colorIndex];
+        } while (colors.find(({ name }) => name === color.name));
+        addColor(color);
+    }
 
     const onSortEnd = ({ oldIndex, newIndex }) => {
         setColors(arrayMove(colors, oldIndex, newIndex));
@@ -140,7 +172,7 @@ const NewPalette = props => {
     const savePalette = () => {
         const id = paletteName.replace(' ', '-').toLowerCase();
         const palette = { paletteName, colors, id }
-        props.savePalette(palette);
+        addPalette(palette);
     };
 
     const handleDrawerOpen = () => {
@@ -211,11 +243,16 @@ const NewPalette = props => {
                     Design Your Palette
                 </Typography>
                 <div>
-                    <Button variant="contained" color="secondary">
+                    <Button variant="contained" color="secondary" onClick={handleClear}>
                         Clear Palette
                     </Button>
-                    <Button variant="contained" color="primary">
-                        Random Color
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleRandom}
+                        disabled={isPaletteFull}
+                    >
+                        Random color
                     </Button>
                 </div>
                 <ChromePicker color={color} onChangeComplete={handleChangeColor} />
@@ -229,11 +266,12 @@ const NewPalette = props => {
                     <Button
                         variant="contained"
                         color="primary"
-                        style={{ backgroundColor: color }}
+                        style={{ backgroundColor: isPaletteFull ? 'grey' : color }}
                         type="submit"
+                        disabled={isPaletteFull}
                     >
-                        Add Color
-                </Button>
+                        {isPaletteFull ? 'Palette full' : 'Add color'}
+                    </Button>
                 </ValidatorForm>
             </Drawer>
             <main

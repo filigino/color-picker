@@ -16,7 +16,7 @@ function App() {
         return generatePalette(palette);
     };
 
-    const savePalette = palette => {
+    const addPalette = palette => {
         setPalettes([...palettes, palette]);
     };
 
@@ -27,7 +27,7 @@ function App() {
                     <PaletteList palettes={palettes} />
                 </Route>
                 <Route exact path="/palette/new">
-                    <NewPalette palettes={palettes} savePalette={savePalette} />
+                    <NewPalette palettes={palettes} addPalette={addPalette} />
                 </Route>
                 <Route exact path="/palette/:id" component={routeParams =>
                     <Palette palette={findPalette(routeParams.match.params.id)} />
