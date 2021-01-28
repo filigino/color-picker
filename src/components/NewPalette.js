@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { arrayMove } from 'react-sortable-hoc';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -13,60 +13,7 @@ import Button from '@material-ui/core/Button';
 import AddColorForm from './AddColorForm';
 import DraggableColorList from './DraggableColorList';
 import NewPaletteNavbar from './NewPaletteNavbar';
-
-const DRAWER_WIDTH = 400;
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    drawer: {
-        width: DRAWER_WIDTH,
-        flexShrink: 0,
-    },
-    drawerPaper: {
-        alignItems: 'center',
-        display: 'flex',
-        width: DRAWER_WIDTH,
-    },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: -DRAWER_WIDTH,
-        height: 'calc(100vh - 64px)'
-    },
-    contentShift: {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-    },
-    container: {
-        alignItems: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',
-        justifyContent: 'center',
-        width: '90%'
-    },
-    buttons: {
-        width: '100%'
-    },
-    button: { width: '50%' }
-}));
+import useStyles from '../styles/NewPaletteStyles'
 
 const NewPalette = ({ palettes, addPalette, maxColors = 20 }) => {
     const history = useHistory();
