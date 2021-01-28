@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { ValidatorForm } from 'react-material-ui-form-validator';
 import { arrayMove } from 'react-sortable-hoc';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -74,24 +73,13 @@ const NewPalette = ({ palettes, addPalette, maxColors = 20 }) => {
     const classes = useStyles();
     const theme = useTheme();
 
-    const [colors, setColors] = React.useState(palettes[0].colors);
-    const [paletteName, setPaletteName] = React.useState('');
-    const [open, setOpen] = React.useState(true);
+    const [colors, setColors] = useState(palettes[0].colors);
+    const [open, setOpen] = useState(true);
 
     const isPaletteFull = colors.length >= maxColors;
 
-    React.useEffect(() => {
-        ValidatorForm.addValidationRule('paletteNameUnique', value =>
-            palettes.every(({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase())
-        );
-    });
-
     const addColor = color => {
         setColors([...colors, color]);
-    };
-
-    const handleChangePaletteName = evt => {
-        setPaletteName(evt.target.value);
     };
 
     const clearPalette = () => {
@@ -120,15 +108,11 @@ const NewPalette = ({ palettes, addPalette, maxColors = 20 }) => {
         setColors(colors.filter(c => c.name !== name));
     };
 
-    const handleSavePalette = () => {
-        savePalette();
-        history.push('/');
-    };
-
-    const savePalette = () => {
+    const savePalette = paletteName => {
         const id = paletteName.replace(' ', '-').toLowerCase();
         const palette = { paletteName, colors, id }
         addPalette(palette);
+        history.push('/')
     };
 
     const handleDrawerOpen = () => {
@@ -142,11 +126,10 @@ const NewPalette = ({ palettes, addPalette, maxColors = 20 }) => {
     return (
         <div className={classes.root}>
             <NewPaletteNavbar
-                paletteName={paletteName}
+                palettes={palettes}
                 open={open}
+                savePalette={savePalette}
                 handleDrawerOpen={handleDrawerOpen}
-                handleSavePalette={handleSavePalette}
-                handleChangePaletteName={handleChangePaletteName}
             />
             <Drawer
                 className={classes.drawer}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import NewPalette from './components/NewPalette';
 import Palette from './components/Palette';
@@ -9,7 +9,7 @@ import { generatePalette } from './seeds/colorHelpers';
 import './css/App.css';
 
 function App() {
-    const [palettes, setPalettes] = React.useState([...seedColors]);
+    const [palettes, setPalettes] = useState([...seedColors]);
 
     const findPalette = id => {
         const palette = palettes.find(palette => palette.id === id);

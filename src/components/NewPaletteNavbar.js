@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
+import NewPaletteModal from './NewPaletteModal'
 
 const DRAWER_WIDTH = 400;
 
@@ -48,13 +48,7 @@ const useStyles = makeStyles((theme) => ({
 const NewPaletteNavbar = props => {
     const classes = useStyles();
 
-    const {
-        paletteName,
-        open,
-        handleDrawerOpen,
-        handleSavePalette,
-        handleChangePaletteName
-    } = props;
+    const { palettes, open, savePalette, handleDrawerOpen } = props;
 
     return (
         <div className={classes.root}>
@@ -81,26 +75,11 @@ const NewPaletteNavbar = props => {
                     </Typography>
                 </Toolbar>
                 <div className={classes.navBtns}>
-                    <ValidatorForm onSubmit={handleSavePalette}>
-                        <TextValidator
-                            value={paletteName}
-                            onChange={handleChangePaletteName}
-                            label="Palette Name"
-                            validators={['required', 'paletteNameUnique']}
-                            errorMessages={['Required', 'Name already used']}
-                        />
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                        >
-                            Save Palette
-                        </Button>
-                    </ValidatorForm>
+                    <NewPaletteModal palettes={palettes} savePalette={savePalette} />
                     <Link to="/">
                         <Button variant="contained" color="secondary">
                             Go back
-                            </Button>
+                        </Button>
                     </Link>
                 </div>
             </AppBar>
