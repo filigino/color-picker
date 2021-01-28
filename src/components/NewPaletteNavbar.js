@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
         }),
         flexDirection: 'row',
         justifyContent: 'space-between',
-        height: '64px'
+        height: '64px',
+        alignItems: 'center'
     },
     appBarShift: {
         width: `calc(100% - ${DRAWER_WIDTH}px)`,
@@ -41,7 +42,13 @@ const useStyles = makeStyles((theme) => ({
         display: 'none',
     },
     navBtns: {
-
+        marginRight: '1rem',
+        '& a': {
+            textDecoration: 'none'
+        }
+    },
+    button: {
+        margin: '0 0.5rem'
     }
 }));
 
@@ -49,6 +56,12 @@ const NewPaletteNavbar = props => {
     const classes = useStyles();
 
     const { palettes, open, savePalette, handleDrawerOpen } = props;
+
+    const [isModalShowing, setIsModalShowing] = useState(false);
+
+    const handleClickOpen = () => {
+        setIsModalShowing(true)
+    }
 
     return (
         <div className={classes.root}>
@@ -75,14 +88,26 @@ const NewPaletteNavbar = props => {
                     </Typography>
                 </Toolbar>
                 <div className={classes.navBtns}>
-                    <NewPaletteModal palettes={palettes} savePalette={savePalette} />
-                    <Link to="/">
-                        <Button variant="contained" color="secondary">
+                    <Link to="/" className={classes.link}>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            className={classes.button}
+                        >
                             Go back
                         </Button>
                     </Link>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleClickOpen}
+                        className={classes.button}
+                    >
+                        Save
+                    </Button>
                 </div>
             </AppBar>
+            {isModalShowing && <NewPaletteModal palettes={palettes} savePalette={savePalette} />}
         </div>
     );
 }
