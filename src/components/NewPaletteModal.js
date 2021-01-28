@@ -10,7 +10,8 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import 'emoji-mart/css/emoji-mart.css'
 
 const NewPaletteModal = props => {
-    const { palettes, isModalShowing, savePalette, hideModal } = props;
+    const { palettes, savePalette, toggleModal } = props;
+    const [page, setPage] = useState(0)
     const [name, setName] = useState('')
 
     useEffect(() => {
@@ -19,47 +20,60 @@ const NewPaletteModal = props => {
         )
     })
 
+    const nextPage = () => {
+        setPage(page + 1)
+    }
+
     const handleChange = evt => {
         setName(evt.target.value);
     }
 
-    const handleSavePalette = () => {
-        savePalette(name);
+    const handleSavePalette = emoji => {
+        savePalette(name, emoji.native)
     }
 
     return (
-        <Dialog open={isModalShowing} onClose={hideModal} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Choose a Palette Name</DialogTitle>
-            <ValidatorForm onSubmit={handleSavePalette}>
-                <DialogContent>
-                    <DialogContentText>
-                        Please enter a unique name for your new palette.
-                    </DialogContentText>
-                    <Picker />
-                    <TextValidator
-                        value={name}
-                        onChange={handleChange}
-                        label="Palette Name"
-                        fullWidth
-                        margin="normal"
-                        validators={['required', 'paletteNameUnique']}
-                        errorMessages={['Required', 'Name already used']}
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={hideModal} color="primary">
-                        Cancel
-                        </Button>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        type="submit"
-                    >
-                        Save Palette
-                        </Button>
-                </DialogActions>
-            </ValidatorForm>
-        </Dialog>
+        <div>
+            <Dialog open={true} onClose={toggleModal} aria-labelledby="form-dialog-title">
+                {page === 0 ?
+                    <>
+                        <DialogTitle id="form-dialog-title">Choose a Palette Name</DialogTitle>
+                        <ValidatorForm onSubmit={nextPage}>
+                            <DialogContent>
+                                <DialogContentText>
+                                    Please enter a unique name for your new palette.
+                                </DialogContentText>
+                                <TextValidator
+                                    value={name}
+                                    onChange={handleChange}
+                                    label="Palette Name"
+                                    fullWidth
+                                    margin="normal"
+                                    validators={['required', 'paletteNameUnique']}
+                                    errorMessages={['Required', 'Name already used']}
+                                />
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={toggleModal} color="primary">
+                                    Cancel
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    type="submit"
+                                >
+                                    Save Palette
+                                </Button>
+                            </DialogActions>
+                        </ValidatorForm>
+                    </>
+                    :
+                    <>
+                        <Picker onSelect={handleSavePalette} />
+                    </>
+                }
+            </Dialog>
+        </div>
     );
 }
 

@@ -108,9 +108,9 @@ const NewPalette = ({ palettes, addPalette, maxColors = 20 }) => {
         setColors(colors.filter(c => c.name !== name));
     };
 
-    const savePalette = paletteName => {
+    const savePalette = (paletteName, emoji) => {
         const id = paletteName.replace(' ', '-').toLowerCase();
-        const palette = { paletteName, colors, id }
+        const palette = { paletteName, id, emoji, colors }
         addPalette(palette);
         history.push('/')
     };

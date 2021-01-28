@@ -59,12 +59,8 @@ const NewPaletteNavbar = props => {
 
     const [isModalShowing, setIsModalShowing] = useState(false);
 
-    const showModal = () => {
-        setIsModalShowing(true)
-    }
-
-    const hideModal = () => {
-        setIsModalShowing(false)
+    const toggleModal = () => {
+        setIsModalShowing(!isModalShowing)
     }
 
     return (
@@ -104,7 +100,7 @@ const NewPaletteNavbar = props => {
                     <Button
                         variant="contained"
                         color="primary"
-                        onClick={showModal}
+                        onClick={toggleModal}
                         className={classes.button}
                     >
                         Save
@@ -114,9 +110,8 @@ const NewPaletteNavbar = props => {
             {isModalShowing &&
                 <NewPaletteModal
                     palettes={palettes}
-                    isModalShowing={isModalShowing}
                     savePalette={savePalette}
-                    hideModal={hideModal}
+                    toggleModal={toggleModal}
                 />
             }
         </div>
