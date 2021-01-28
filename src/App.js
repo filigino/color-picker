@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import NewPalette from './components/NewPalette';
 import Palette from './components/Palette';
@@ -8,16 +8,25 @@ import seedColors from './seeds/seedColors';
 import { generatePalette } from './seeds/colorHelpers';
 import './css/App.css';
 
-function App() {
-    const [palettes, setPalettes] = useState([...seedColors]);
+const App = () => {
+    const localPalettes = JSON.parse(window.localStorage.getItem('palettes'))
+    const [palettes, setPalettes] = useState(localPalettes || seedColors)
+
+    useEffect(() => {
+        localSave(palettes)
+    })
+
+    const addPalette = palette => {
+        setPalettes([...palettes, palette])
+    }
+
+    const localSave = palettes => {
+        window.localStorage.setItem('palettes', JSON.stringify(palettes))
+    }
 
     const findPalette = id => {
         const palette = palettes.find(palette => palette.id === id);
         return generatePalette(palette);
-    };
-
-    const addPalette = palette => {
-        setPalettes([...palettes, palette]);
     };
 
     return (
