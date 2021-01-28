@@ -15,38 +15,18 @@ import AddColorForm from './AddColorForm';
 import DraggableColorList from './DraggableColorList';
 import NewPaletteNavbar from './NewPaletteNavbar';
 
-const drawerWidth = 400;
+const DRAWER_WIDTH = 400;
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
-    appBar: {
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    hide: {
-        display: 'none',
-    },
     drawer: {
-        width: drawerWidth,
+        width: DRAWER_WIDTH,
         flexShrink: 0,
     },
     drawerPaper: {
-        width: drawerWidth,
+        width: DRAWER_WIDTH,
     },
     drawerHeader: {
         display: 'flex',
@@ -63,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        marginLeft: -drawerWidth,
+        marginLeft: -DRAWER_WIDTH,
         height: 'calc(100vh - 64px)'
     },
     contentShift: {
@@ -153,7 +133,6 @@ const NewPalette = ({ palettes, addPalette, maxColors = 20 }) => {
                 handleDrawerOpen={handleDrawerOpen}
                 handleSavePalette={handleSavePalette}
                 handleChangePaletteName={handleChangePaletteName}
-                classes={classes}
             />
             <Drawer
                 className={classes.drawer}
