@@ -15,7 +15,6 @@ class SingleColorPalette extends Component {
         this.state = { format: 'hex', isSnackbarOpen: false }
         this._palette = this.buildPalette();
         this.changeFormat = this.changeFormat.bind(this);
-        this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this);
         this.closeSnackbar = this.closeSnackbar.bind(this);
     }
 
@@ -30,10 +29,6 @@ class SingleColorPalette extends Component {
 
     changeFormat(format) {
         this.setState({ format, isSnackbarOpen: true });
-    }
-
-    handleCloseSnackbar() {
-        this.closeSnackbar();
     }
 
     closeSnackbar() {
@@ -82,7 +77,7 @@ class SingleColorPalette extends Component {
                     ContentProps={{ 'aria-describedby': 'message-id' }}
                     action={[
                         <IconButton
-                            onClick={this.handleCloseSnackbar}
+                            onClick={this.closeSnackbar}
                             color="inherit"
                             key="close"
                             aria-label="close"

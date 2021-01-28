@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { ChromePicker } from 'react-color';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { ValidatorForm } from 'react-material-ui-form-validator';
 import { arrayMove } from 'react-sortable-hoc';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -12,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from '@material-ui/core/Button';
+import AddColorForm from './AddColorForm';
 import DraggableColorList from './DraggableColorList';
 import NewPaletteNavbar from './NewPaletteNavbar';
 
@@ -81,59 +81,24 @@ const NewPalette = ({ palettes, addPalette, maxColors = 20 }) => {
     const theme = useTheme();
 
     const [colors, setColors] = React.useState(palettes[0].colors);
-    const [color, setColor] = React.useState('teal');
-    const [colorName, setColorName] = React.useState('');
     const [paletteName, setPaletteName] = React.useState('');
     const [open, setOpen] = React.useState(true);
 
     const isPaletteFull = colors.length >= maxColors;
 
     React.useEffect(() => {
-        ValidatorForm.addValidationRule('colorNameUnique', value =>
-            colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase())
-        );
-        ValidatorForm.addValidationRule('colorUnique', () =>
-            colors.every(c => c.color !== color)
-        );
         ValidatorForm.addValidationRule('paletteNameUnique', value =>
             palettes.every(({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase())
         );
     });
 
-    const handleChangeColor = color => {
-        changeColor(color);
-    };
-
-    const changeColor = color => {
-        setColor(color.hex);
-    };
-
-    const handleSubmit = () => {
-        if (!isPaletteFull) {
-            addColor({ name: colorName, color });
-            clearColorName();
-        }
-    };
-
     const addColor = color => {
         setColors([...colors, color]);
-    };
-
-    const clearColorName = () => {
-        setColorName('');
-    }
-
-    const handleChangeColorName = evt => {
-        setColorName(evt.target.value);
     };
 
     const handleChangePaletteName = evt => {
         setPaletteName(evt.target.value);
     };
-
-    const handleClear = () => {
-        clearPalette();
-    }
 
     const clearPalette = () => {
         setColors([]);
@@ -209,7 +174,7 @@ const NewPalette = ({ palettes, addPalette, maxColors = 20 }) => {
                     Design Your Palette
                 </Typography>
                 <div>
-                    <Button variant="contained" color="secondary" onClick={handleClear}>
+                    <Button variant="contained" color="secondary" onClick={clearPalette}>
                         Clear Palette
                     </Button>
                     <Button
@@ -222,24 +187,11 @@ const NewPalette = ({ palettes, addPalette, maxColors = 20 }) => {
                         Random color
                     </Button>
                 </div>
-                <ChromePicker color={color} onChangeComplete={handleChangeColor} />
-                <ValidatorForm onSubmit={handleSubmit}>
-                    <TextValidator
-                        value={colorName}
-                        onChange={handleChangeColorName}
-                        validators={['required', 'colorNameUnique', 'colorUnique']}
-                        errorMessages={['Required', 'Name already used', 'Color already used']}
-                    />
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        style={{ backgroundColor: isPaletteFull ? 'grey' : color }}
-                        type="submit"
-                        disabled={isPaletteFull}
-                    >
-                        {isPaletteFull ? 'Palette full' : 'Add color'}
-                    </Button>
-                </ValidatorForm>
+                <AddColorForm
+                    colors={colors}
+                    isPaletteFull={isPaletteFull}
+                    addColor={addColor}
+                />
             </Drawer>
             <main
                 className={clsx(classes.content, {

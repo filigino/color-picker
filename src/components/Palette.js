@@ -14,7 +14,6 @@ class Palette extends Component {
         this.state = { level: 500, format: 'hex', isSnackbarOpen: false };
         this.changeLevel = this.changeLevel.bind(this);
         this.changeFormat = this.changeFormat.bind(this);
-        this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this);
         this.closeSnackbar = this.closeSnackbar.bind(this);
     }
 
@@ -24,10 +23,6 @@ class Palette extends Component {
 
     changeFormat(format) {
         this.setState({ format, isSnackbarOpen: true });
-    }
-
-    handleCloseSnackbar() {
-        this.closeSnackbar();
     }
 
     closeSnackbar() {
@@ -74,7 +69,7 @@ class Palette extends Component {
                     ContentProps={{ 'aria-describedby': 'message-id' }}
                     action={[
                         <IconButton
-                            onClick={this.handleCloseSnackbar}
+                            onClick={this.closeSnackbar}
                             color="inherit"
                             key="close"
                             aria-label="close"
