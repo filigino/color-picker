@@ -1,11 +1,24 @@
 import chroma from 'chroma-js';
+import sizes from '../styles/sizes'
 
 const styles = {
     colorBox: {
         display: 'inline-block',
         height: props => props.isSingleColor ? '50%' : '25%',
         position: 'relative',
-        width: '20%'
+        width: '20%',
+        [sizes.down('lg')]: {
+            height: props => props.isSingleColor ? '10%' : '20%',
+            width: '25%'
+        },
+        [sizes.down('md')]: {
+            height: props => props.isSingleColor ? '10%' : '10%',
+            width: '50%'
+        },
+        [sizes.down('xs')]: {
+            height: props => props.isSingleColor ? '10%' : '5%',
+            width: '100%'
+        },
     },
     background: {
         backgroundColor: props => props.backgroundColor,
