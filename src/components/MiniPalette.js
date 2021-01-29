@@ -1,13 +1,14 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
+import DeleteIcon from '@material-ui/icons/Delete'
 import styles from '../styles/MiniPaletteStyles';
 
 const MiniPalette = (props) => {
     const history = useHistory();
     const { classes, colors, emoji, id, paletteName } = props;
 
-    const handleClick = () => {
+    const openPalette = () => {
         history.push(`/palette/${id}`);
     }
 
@@ -28,7 +29,13 @@ const MiniPalette = (props) => {
     )
 
     return (
-        <button className={classes.root} onClick={handleClick}>
+        <button className={classes.root} onClick={openPalette}>
+            <div className={classes.delete}>
+                <DeleteIcon
+                    className={classes.deleteIcon}
+                    style={{ transition: 'all 0.3s ease-in-out' }}
+                />
+            </div>
             <div className={classes.colors}>
                 {miniColorBoxes}
             </div>
