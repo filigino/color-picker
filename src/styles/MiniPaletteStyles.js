@@ -38,18 +38,16 @@ const styles = {
         margin: '0 auto',
         marginBottom: '-3.5px'
     },
-    delete: {
-    },
     deleteIcon: {
         backgroundColor: '#eb3d30',
         color: 'white',
-        height: '20px',
+        height: '30px',
         opacity: 0,
-        // padding: '10px',
+        padding: '5px',
         position: 'absolute',
         right: 0,
         top: 0,
-        width: '20px'
+        width: '30px'
     }
 };
 

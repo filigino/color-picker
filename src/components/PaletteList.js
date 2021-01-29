@@ -6,11 +6,11 @@ import styles from '../styles/PaletteListStyles';
 
 class PaletteList extends Component {
     render() {
-        const { palettes, classes } = this.props;
+        const { palettes, deletePalette, classes } = this.props;
 
         const paletteList = palettes.map(p =>
             <div key={p.id} className="col-4">
-                <MiniPalette {...p} />
+                <MiniPalette {...p} deletePalette={deletePalette} />
             </div>
         )
 

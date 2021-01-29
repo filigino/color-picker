@@ -16,12 +16,16 @@ const App = () => {
         localSave(palettes)
     })
 
+    const localSave = palettes => {
+        window.localStorage.setItem('palettes', JSON.stringify(palettes))
+    }
+
     const addPalette = palette => {
         setPalettes([...palettes, palette])
     }
 
-    const localSave = palettes => {
-        window.localStorage.setItem('palettes', JSON.stringify(palettes))
+    const deletePalette = id => {
+        setPalettes(palettes.filter(palette => palette.id !== id))
     }
 
     const findPalette = id => {
@@ -33,7 +37,7 @@ const App = () => {
         <div className="App">
             <Switch>
                 <Route exact path="/">
-                    <PaletteList palettes={palettes} />
+                    <PaletteList palettes={palettes} deletePalette={deletePalette} />
                 </Route>
                 <Route exact path="/palette/new">
                     <NewPalette palettes={palettes} addPalette={addPalette} />
